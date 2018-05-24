@@ -1,5 +1,6 @@
 package ru.advantum.backend.websocket;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
@@ -15,9 +16,12 @@ public class WebSocketConfig implements WebSocketConfigurer {
         return new WsHandler();
     }
 
+    @Value("${ws.endpoint:/ws}")
+    private String wsEndpoint;
+
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler(myMessageHandler(), "/ws");
+        registry.addHandler(myMessageHandler(), wsEndpoint).setAllowedOrigins("*");
     }
 
 }
