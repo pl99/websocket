@@ -17,10 +17,11 @@ public class WebSocketConfig implements WebSocketConfigurer {
     }
 
     @Value("${ws.endpoint:/ws}")
-    private String wsEndpoint;
+    private String[] wsEndpoint;
 
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
+//        https://stackoverflow.com/a/30776269
         registry.addHandler(myMessageHandler(), wsEndpoint).setAllowedOrigins("*");
     }
 
