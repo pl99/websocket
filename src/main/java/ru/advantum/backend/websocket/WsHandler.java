@@ -40,7 +40,7 @@ public class WsHandler  extends TextWebSocketHandler {
         // A message has been received
         System.out.println("Message received: " + textMessage.getPayload());
         sessionMap.entrySet()
-                .stream().filter(s->session.getId()!=s.getValue().getId())
+                .stream().filter(s->!session.getId().equals(s.getValue().getId()))
                 .forEach(s -> {try {s.getValue().sendMessage(textMessage);} catch (IOException e) {System.out.println (e.getMessage());}});
     }
 }
